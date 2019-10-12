@@ -1,0 +1,19 @@
+{
+  "name": "jojo-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio site for Jojo's Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KnechtionsCoding/jojo-portfolio.git"
+  },
+  "author": "Hans Knecht <hans.knechtions@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KnechtionsCoding/jojo-portfolio/issues"
+  },
+  "homepage": "https://github.com/KnechtionsCoding/jojo-portfolio#readme"
+}
