@@ -11,8 +11,6 @@ script:
 cache:
   directories:
   - node_modules
-before_deploy:
-- rm -R node_modules/
 deploy:
   on:
     branch: master
@@ -22,6 +20,7 @@ deploy:
   bucket: jojos-portfolio
   skip_cleanup: true
   acl: public_read
+  local_dir: dist
 after_deploy:
 - aws configure set preview.cloudfront true
 - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
