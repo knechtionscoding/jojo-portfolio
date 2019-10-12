@@ -1,19 +1,26 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="small-container">
+    <custom-header />
+    <h1>Jojo's Photography</h1>
+  
+    <photo-collage />
+    <custom-footer currentyear="2019" company="Jojo's Photography"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import PhotoCollage from '@/components/PhotoCollage.vue'
+  import CustomHeader from '@/components/CustomHeader.vue'
+  import CustomFooter from '@/components/CustomFooter.vue'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  export default {
+    name: 'app',
+    components: {
+      PhotoCollage,
+      CustomHeader,
+      CustomFooter
+    },
   }
-}
 </script>
 
 <style>
