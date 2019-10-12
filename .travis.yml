@@ -1,0 +1,39 @@
+sudo: false
+git:
+  depth: 3
+  quiet: true
+language: node_js
+node_js:
+- "stable"
+install: npm ci
+script:
+- npm run build
+cache:
+  directories:
+  - node_modules
+before_deploy:
+- rm -R node_modules/
+deploy:
+  on:
+    branch: master
+  provider: s3
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
+  bucket: jojos-portfolio
+  skip_cleanup: true
+  acl: public_read
+after_deploy:
+- aws configure set preview.cloudfront true
+- aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID
+  --paths "/*"
+env:
+  global:
+  - CLOUDFRONT_DISTRIBUTION_ID=E372RB7ATYIK1P
+  - AWS_DEFAULT_REGION=us-east-1
+  - secure: D71+7KPyxuco0ZuWDn5Iig432D7t8Tq/JqEyGv6KBPlEwJECRp2k3dZ+JpJum9Ns+j0kXuj2mUw2pV3dMJGBbxs+ra5vucnXylRab1z1NI03/KzfHTT/CGSVvd8OHfwsJc1fl1VsVfiPN+aFo1LmV+lhmB7Q3OfQPeztAKgoIiQxlGheKdCefZBJLkgj2t3lL4i0I6Y8p6/BuBcFRYx7fz/mH0HU30BFEbpUrlnImpQ3UkTuzWNx7e8jldarklE7yhzAJpYFuX4tCPWKA8UBym3EGPdgK7fxJS0IBQFwCKeLWHpYHXRScOQmJF9A83yarKOPxz+F+OPrFOzaw/cYPuYRK0P/Dfczy1MOjJRm59P8pKQ4OemFkVbYr6xBMDn4SWKEHWECE8k872952SPReSIO1/HYJU1P286Y7IHFeOIj2bCMQ4C6Y1C6EM45FHq5zANczlDfpsHneotQ9edz9NebiqiXyIQPPKxSyhjxR7LmfevQKPQonIzC9DH3rkJyHKkx6cRiDXZBgZNQYwo/falpIeNKoHYIbEm3jgArRrSsaljEHK1Oi6amUd/OGm+iK4Sph3MxaToOjSTKdda5wesaoEfSyV8NKbokREFueXCRY2ReP3RGZktnf2vxdF9tPBSwok1FR3ZXnihajPjUV4IABYiuomEIpegwJPmTazw=
+  - secure: ZqBS+THNUfdM/z2q6HWy8/uIiKusBeq7pX65oKDIz3yZdTmUcM4ciZV7b/xs8RGXs8YsnvUPaw1scGn55ff9b9gxHjyctuX0ymDGTILVeV5PW9H5UL7OMmAG6JLscoKOoBBZnTHDaa78B6XtuV8XcrvCy6q0b+6C+PtRO/F+2ypUNA06a18Zv58sAnMgeJWSlQ4p5ufCSjg4V8pXOdqb58oPyAeZMqHboA7DqbSBZjKh+VAhJS/gdUyJvqAfGTe2bwdJWiHPlPgaRWUvI8ZUzHg8bWuLvscZc17bcS6Jeye2VMatuOb1wURnmAWf69JY3GF38aJ3DaxsKP/07j0vvhkzwgcqT4zFAmCQS0HPtuQzqD5MtzUIRgYTwsR4ijqdlKUDFItstvbI3vdTbZB8ySXZeSoXpptkyiVTcxC3o7YPlFCkVG3HSrOTa+dSFoIuCCvStQBRZOtr1+ckdLCbEE4ZHpOKjNB5DlYKJyWCMcaVkYDzi3odpgBCuetE6PuLCGKL0bv4/zugdC2zRXIR4G04dNzqX9Nfx2DHi6XsLfR4ydTb4qs0SacwKa1WQ/LCOSQAtEpxJe0oOrSCnHifkhQflYyfntVICcGI1iTCekNmwAPDgo9kF+Os7G3LkN2seaJrNAfxO7LEbKbDv3cf2TcGHtmWah7iMF4JqB5X62I=
+
+notifications: 
+  email:
+    recipients:
+    - hans.knechtions@gmail.com
