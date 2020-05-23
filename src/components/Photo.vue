@@ -66,6 +66,7 @@ export default {
 
   .lightbox-info {
     margin: auto 2rem auto 0;
+    border-radius: 25px;
   }
 
   .lightbox-info-inner {
